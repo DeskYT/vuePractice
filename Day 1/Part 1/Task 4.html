@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice Day1. Task 4.</title>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="experienceInput">
+    <button v-on:click="countPremium">Find Entrance</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            experienceInput: "",
+        },
+        methods: {
+            countPremium: function () {
+               let premium = 0;
+               this.experienceInput = parseInt(this.experienceInput);
+               if (isNaN(this.experienceInput)) return;
+
+               if (this.experienceInput < 3) premium = 0;
+               else if(this.experienceInput < 10) premium = 0.1;
+               else if(this.experienceInput < 20) premium = 0.2;
+               else premium = 0.25;
+               alert(`Premium: ${premium}`);
+            },
+        }
+    })
+</script>
+</body>
+</html>

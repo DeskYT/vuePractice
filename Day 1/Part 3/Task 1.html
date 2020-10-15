@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 1</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+        img{
+            width: 400px;
+            height: 400px;
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+<img src="https://www.quickbase.com/blog/wp-content/uploads/2013/02/Aunt-Linda-SNL-cringe-worthy-career-mistakes.png" alt="">
+<img src="https://i.insider.com/58504c1bdd0895de548b49b1?width=1100&format=jpeg&auto=webp" alt="">
+<img src="https://consequenceofsound.net/wp-content/uploads/2019/11/Donald-Trump-MagaChallenge.png?w=807" alt="">
+<script>
+    const addShadows = () => document.querySelectorAll("img").forEach(it=>it.style.boxShadow = "10px 10px 5px 0px rgba(0,0,0,0.75)");
+    addShadows();
+</script>
+</body>
+</html>

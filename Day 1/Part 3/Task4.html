@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="text" placeholder="TagName" v-model="tag">
+    <button v-on:click="addUnderline">Add UnderLine</button>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium animi, architecto at consequatur
+        dolor dolorem excepturi exercitationem expedita explicabo fugiat id illo iusto, minus officia officiis optio
+        quas quisquam, voluptate voluptatibus. Aperiam dolor facilis maxime quidem! Accusamus animi at eligendi
+        laboriosam, minima mollitia, nam quibusdam, quidem quo repellendus sunt.</p>
+    <p>Aspernatur autem consequatur dignissimos eaque enim, eos eveniet, exercitationem non nostrum officia, quis
+        repellat sequi ut voluptate voluptatum. Aliquam beatae doloribus in incidunt iusto, magnam maiores maxime
+        officia pariatur quaerat quisquam reiciendis repellendus sequi tenetur totam? Accusantium blanditiis ducimus
+        repellat sint voluptas! Commodi hic nisi nobis provident quisquam recusandae veritatis.</p>
+    <p>Cupiditate dicta, doloremque eaque id nam non quae quibusdam. Adipisci animi autem blanditiis consequuntur
+        corporis cupiditate, dicta dolor dolore doloremque doloribus esse est fugiat id incidunt ipsa ipsam laudantium
+        magnam magni natus nisi odit omnis perferendis perspiciatis placeat possimus quae quas ratione recusandae
+        repudiandae sit suscipit, totam veniam voluptates voluptatum!</p>
+    <p>At consequatur cumque exercitationem numquam officia. A ab, adipisci alias animi, aut autem blanditiis commodi
+        cum deserunt explicabo fugiat harum incidunt laborum laudantium magnam magni mollitia nam, nisi nulla numquam
+        optio pariatur perferendis possimus quam quis quo soluta voluptatibus. Aliquam autem dolore eius et magni nihil
+        optio repudiandae ullam voluptates!</p>
+    <p>Autem blanditiis excepturi expedita sit. Ab accusantium adipisci alias aliquid amet commodi consequatur delectus
+        dolore error expedita explicabo fuga hic incidunt libero maiores, molestias natus officiis perferendis possimus
+        provident, quaerat quam qui quia quis quo sunt ullam ut velit veniam voluptatem. Aliquam dicta esse explicabo
+        illo impedit pariatur perferendis quos!</p>
+    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, fugiat.</div>
+    <div>Adipisci, facilis, magnam! Consequuntur excepturi hic nihil nobis nulla reiciendis.</div>
+    <div>Aut consequuntur deleniti eveniet exercitationem magni natus officia quibusdam voluptatum?</div>
+    <div>Assumenda commodi dolorum enim iusto laboriosam nam optio ut veniam.</div>
+    <div>Adipisci animi cupiditate dolore eaque minima provident vitae? Provident, sunt?</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            tag: "",
+        },
+        methods: {
+            addUnderline: function (){
+                const workZone = document.querySelector("#app");
+                workZone.querySelectorAll(this.tag).forEach(it=>it.style.textDecorationLine = "underline")
+            }
+        }
+    })
+</script>
+</body>
+</html>

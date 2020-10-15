@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice Day1. Task 1.</title>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="loginInput">
+    <input type="password" v-model="passwordInput">
+    <button v-on:click="checkAuthData">Find Entrance</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            loginInput: "",
+            passwordInput: "",
+            usersList: [
+                {
+                    userName: "toma",
+                    password: "123"
+                },
+                {
+                    userName: "petya",
+                    password: "777"
+                },
+                {
+                    userName: "olya",
+                    password: "456"
+                }
+            ]
+        },
+        methods: {
+            checkAuthData: function () {
+                let res = this.usersList.some(it => {
+                    return (it.userName === this.loginInput) && (it.password === this.passwordInput);
+                });
+                if (res) alert("Success");
+                else alert("Access denied");
+            },
+        }
+    })
+</script>
+</body>
+</html>

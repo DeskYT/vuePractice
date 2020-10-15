@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice Day1. Task 1.</title>
+
+</head>
+<body>
+
+<div id="app">
+    <h1 v-for="index in 9" :key="index">{{`5*${index}=${5*index}`}}</h1>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: "#app",
+    })
+</script>
+</body>
+</html>

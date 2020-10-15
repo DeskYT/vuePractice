@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+        p{
+            width: 80vw;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur consequuntur eligendi impedit, laborum libero
+    obcaecati odit quasi quisquam recusandae repellat sequi tempora vero vitae! Accusamus aliquam amet consequuntur
+    dolorem et exercitationem fuga inventore ipsam iusto laborum minus mollitia, natus nobis officiis pariatur quam
+    ratione saepe similique sit suscipit tenetur vero.</p>
+<p>Ab iste necessitatibus odio? Doloremque id illo iste quaerat reprehenderit? Accusantium amet aut consectetur fuga in
+    labore minima nam nisi nostrum pariatur praesentium, provident quis soluta vero voluptates? Ipsum necessitatibus
+    quisquam sunt. Accusamus ad aliquid cupiditate doloribus eaque explicabo, fugiat id impedit magnam, necessitatibus
+    nobis sint sit totam vitae voluptatem?</p>
+<p>Architecto aspernatur commodi eveniet explicabo id inventore labore nesciunt sint totam voluptas! Accusamus
+    asperiores assumenda distinctio dolore excepturi expedita iure libero minima, necessitatibus placeat, quam quisquam
+    quo, rem repudiandae voluptas. Adipisci beatae consectetur debitis dignissimos doloremque dolores ducimus eligendi
+    enim explicabo, fugit impedit laborum, nisi placeat quas saepe tenetur voluptatem!</p>
+<script>
+    const addNumeration = () => document.querySelectorAll("p").forEach((it, index)=>it.innerText = `${index + 1}. ${it.innerText}`);
+    addNumeration();
+</script>
+</body>
+</html>

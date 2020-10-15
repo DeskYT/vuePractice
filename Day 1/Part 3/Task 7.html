@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice Day1. Task 5.</title>
+
+</head>
+<body>
+
+<div id="app">
+    <h3>Размер</h3>
+    <select v-model="selectedBurger">
+        <option v-for="size in burgerData.size" v-bind:value="size">{{`${size.head}, ${size.price} грн. ${size.calorie} ккал`}}</option>
+    </select>
+    <h3>Начинка</h3>
+    <div v-for="filling in burgerData.filling" :key="filling.head">
+        <input type="checkbox" v-model="selectedFilling" :value="filling"/>
+        <label>{{`${filling.head}, ${filling.price} грн. ${filling.calorie} ккал`}}</label>
+    </div>
+    <h3>Соусы</h3>
+    <div v-for="sauces in burgerData.sauces" :key="sauces.head">
+        <input type="checkbox" v-model="selectedSauces" :value="sauces"/>
+        <label>{{`${sauces.head}, ${sauces.price} грн. ${sauces.calorie} ккал`}}</label>
+    </div>
+
+    <button v-on:click="makeOrder">Find Entrance</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    class foodUnit{
+        constructor(head, price, calorie) {
+            this.head = head;
+            this.price = price;
+            this.calorie = calorie;
+        }
+    }
+    let app = new Vue({
+        el: "#app",
+        data: {
+            selectedBurger: null,
+            selectedFilling: [],
+            selectedSauces: [],
+            burgerData: {
+                size: [
+                    new foodUnit("маленький", 17, 250),
+                    new foodUnit("большой", 25, 340),
+                ],
+                filling: [
+                    new foodUnit("сир", 4, 25),
+                    new foodUnit("салат", 5, 5),
+                    new foodUnit("шинка", 10, 50),
+                ],
+                sauces: [
+                    new foodUnit("соус", 5, 0),
+                    new foodUnit("майонез", 4, 10),
+                ]
+            }
+        },
+        methods: {
+            makeOrder: function(){
+                if (!this.selectedBurger){alert("Выберите размер бургера."); return;}
+                if (this.selectedFilling.length === 0){alert("Выберите хотя бы 1 начинку."); return;}
+                let price = this.selectedBurger.price;
+                let calories = this.selectedBurger.calorie;
+                this.selectedFilling.forEach(it=>{
+                    price+=it.price;
+                    calories+=it.calorie;
+                });
+                this.selectedSauces.forEach(it=>{
+                    price+=it.price;
+                    calories+=it.calorie;
+                });
+                alert(`Вы заказали ${calories} ккал на сумму ${price} грн.`);
+            },
+        }
+    })
+</script>
+</body>
+</html>

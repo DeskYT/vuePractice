@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice Day1. Task 1.</title>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="flatNumber">
+    <button v-on:click="findEntrance">Find Entrance</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Number.prototype.between = function (a, b) {
+        return ((this.valueOf() >= a) && (this.valueOf() <= b))
+    }
+
+    let app = new Vue({
+        el: "#app",
+        data: {
+            flatNumber: ""
+        },
+        methods: {
+            findEntrance: function () {
+                const num = parseInt(this.flatNumber);
+                let msg = "";
+                if      (num.between(1,20))     msg = "First entrance";
+                else if (num.between(21, 48))   msg = "Second entrance";
+                else if (num.between(49, 90))   msg = "Third entrance";
+                else                            msg = "Error: Cringe Input";
+                alert(msg);
+                this.flatNumber = '';
+            },
+        }
+    })
+</script>
+</body>
+</html>

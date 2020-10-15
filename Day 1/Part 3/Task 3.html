@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="text" placeholder="Число" v-model="number">
+    <input type="text" placeholder="Степень" v-model="power">
+    <button v-on:click="pow">Power</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            number: "",
+            power: "",
+        },
+        methods: {
+            pow: function(){
+                this.number = parseInt(this.number);
+                this.power = parseInt(this.power);
+                if(isNaN(this.number) || isNaN(this.power)) return;
+                alert(Math.pow(this.number, this.power));
+            }
+        }
+    })
+</script>
+</body>
+</html>

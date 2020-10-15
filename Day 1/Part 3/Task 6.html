@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice Day1. Task 5.</title>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="trialNumber">
+    <button v-on:click="checkNumber">Find Entrance</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const getRandomInt = (max) => {
+        return Math.floor(Math.random() * Math.floor(max));
+    };
+    let app = new Vue({
+        el: "#app",
+        data: {
+            tries: 3,
+            correctNumber: getRandomInt(10),
+            trialNumber: ""
+        },
+        methods: {
+            newGame: function(){
+              this.tries = 3;
+              this.correctNumber = getRandomInt(10);
+              this.trialNumber = ""
+            },
+            checkNumber: function (){
+                if(parseInt(this.trialNumber) === this.correctNumber){
+                    alert("You win!");
+                    this.newGame();
+                    return;
+                }
+                this.tries -= 1;
+                if(this.tries <= 0) {
+                    alert("You loose!");
+                    this.newGame();
+                    return;
+                }
+                alert("Wrong number!");
+
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

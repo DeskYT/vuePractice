@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practice Day1. Task 1.</title>
+
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="age">
+    <button v-on:click="checkAge">Find Entrance</button>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    let app = new Vue({
+        el: "#app",
+        data: {
+            age: ""
+        },
+        methods: {
+            checkAge: function () {
+                let msg = "";
+                if      (parseInt(this.age) >= 16) msg = "Access granted";
+                else                               msg = "Access denied";
+                alert(msg);
+                this.age = '';
+            },
+        }
+    })
+</script>
+</body>
+</html>
