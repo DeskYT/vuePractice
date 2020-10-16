@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 2</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  #app{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  th, td {
+    padding: 10px;
+  }
+  .red { color: red }
+  .black { color: black }
+  input {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 10px
+  }
+  .actionsContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .btn {
+    font-size: 16px;
+    margin: 10px 0;
+    padding: 6px 10px;
+    border: 0;
+    border-radius: 15px;
+    background-color: gray;
+    color: white;
+    outline: none;
+  }
+  .quotesContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-top: 20px;
+  }
+  .sortedQuotes {
+    display: none;
+  }
+  label > span {margin-left: 5px;}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="actionsContainer">
+      <label>
+        <input v-model = "isAuthor" value = "true" type="radio" name="button" >
+        <span>Вывести цитаты c автором</span>
+      </label>
+      <label>
+        <input v-model = "isAuthor" value = "" type="radio" name="button">
+        <span>Вывести цитаты без автора</span>
+      </label>
+      <label>
+        <input v-model = "isAuthor" value = "all" type="radio" name="button">
+        <span>Вывести все цитаты</span>
+      </label>
+      <button @click = "displaySortedArray" class = "btn" type="button" name="button">Sort it!</button>
+    </div>
+    <div class="quotesContainer">
+      <h1>Quotes</h1>
+      <table border='1'>
+        <thead>
+        <th>№</th>
+        <th>Quote</th>
+        <th>Source</th>
+        </thead>
+        <tbody>
+        <tr
+                v-for = "(qt, index) in withAuthor"
+                :class = "qt.quote.length >= 40 ? 'red' : 'black'">
+          <td>{{ index }}</td>
+          <td>{{ qt.quote }}</td>
+          <td>{{ qt.source }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class = "sortedQuotes quotesContainer">
+      <h1>Sorted Quotes</h1>
+      <table border='1'>
+        <thead>
+          <th>№</th>
+          <th>Quote</th>
+          <th>Source</th>
+        </thead>
+        <tbody>
+          <tr
+          v-for = "(qt, index) in sortedWithAuthor"
+          :class = "qt.quote.length >= 40 ? 'red' : 'black'">
+            <td>{{ index }}</td>
+            <td>{{ qt.quote }}</td>
+            <td>{{ qt.source }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button @click = "closeSortedArray" class = "btn" type="button">Close</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        quotesArray: [
+          {
+            "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "source": "Lorelian"
+          },
+          {
+            "quote": "Vestibulum sed arcu non odio euismod.",
+            "source": ""
+          },
+          {
+            "quote": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "source": "Ipsumoto"
+          },
+          {
+            "quote": "Elibero enim sed faucibus turpis in",
+            "source": ""
+          },
+          {
+            "quote": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "source": "Dolonor"
+          },
+          {
+            "quote": "Eid cursus metus aliquam eleifend mi",
+            "source": ""
+          },
+          {
+            "quote": "Quis risus sed vulputate odio ut",
+            "source": "Sit"
+          },
+          {
+            "quote": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "source": ""
+          },
+          {
+            "quote": "Lorem  elit. Cupiditate, laboriosam!",
+            "source": "Emmet"
+          }
+        ],
+        isAuthor: "",
+        sortedArray: []
+      },
+      computed: {
+        withAuthor: function() {
+          if (this.isAuthor === "all") return this.quotesArray;
+
+          return this.quotesArray.filter(elem => (Boolean(this.isAuthor) === Boolean(elem.source)));
+        },
+        sortedWithAuthor: function() {
+          if (this.isAuthor === "all") return this.sortedArray;
+
+          return this.sortedArray.filter(elem => (Boolean(this.isAuthor) === Boolean(elem.source)));
+        }
+      },
+      methods: {
+        displaySortedArray: function() {
+          this.sortedArray = this.quotesArray.slice().sort((a,b) => (a.source < b.source)?-1:1)
+          document.querySelector(".sortedQuotes").style.display = 'flex';
+        },
+        closeSortedArray: function() {
+          document.querySelector(".sortedQuotes").style.display = 'none';
+        }
+      }
+    })
+  </script>
+</body>
+</html>
