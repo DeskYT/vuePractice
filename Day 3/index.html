@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Day 3</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+  }
+  #app{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+  table { margin-top: 15px}
+  th, td { padding: 5px 10px; text-align: center}
+  button {
+    font-size: 16px;
+    padding: 6px 10px;
+    border: 0;
+    border-radius: 15px;
+    background-color: gray;
+    color: white;
+    outline: none;
+  }
+
+  .searchInput {
+    margin-top: 15px;
+    outline: none;
+    border: 1px solid #999999;
+    border-radius: 20px;
+    padding: 5px 15px;
+  }
+  .c {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .exclude{
+    display: none;
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Студенти</h1>
+      <input class="searchInput" type="text" v-model = "coincidence" placeholder="Поиск" size = 35>
+    <table border = '1'>
+      <thead>
+        <th>№</th>
+        <th>ФИО</th>
+        <th>Группа</th>
+        <th>Сдал\Не сдал</th>
+        <th>Удалить</th>
+      </thead>
+      <tbody>
+        <tr v-for = "(stud, index) in students" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
+          <td>{{ index }}</td>
+          <td>{{ stud.name }}</td>
+          <td>{{ stud.group }}</td>
+          <td>
+            <input type="checkbox" :checked = "stud.offset" disabled>
+          </td>
+          <td><button type="button" @click = "deleteStudent(stud.id)">Удалить</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      students: [
+        {
+          id: 0,
+          name: "John Smith",
+          group: 'RPZ 17 - 2/9',
+          birthday: '03.02.2001',
+          offset: true
+        },
+        {
+          id: 1,
+          name: 'Albert Brown',
+          group: 'RPZ 17 - 1/9',
+          birthday: '01.02.2003',
+          offset: false
+        },
+        {
+          id: 2,
+          name: 'Cameron Black',
+          group: 'RPZ 17 - 2/9',
+          birthday: '01.01.2001',
+          offset: true
+        },
+        {
+          id: 3,
+          name: 'John Connor',
+          group: 'Resistance 29 - 8/97',
+          birthday: '28.02.1985',
+          offset: true
+        }
+      ],
+      coincidence: ""
+    },
+    methods: {
+      deleteStudent: function(id) {
+        this.students.forEach((it, index)=>{
+          if(it.id === id){
+            this.students.splice(index, 1);
+            return;
+          }
+        });
+      }
+    }
+  })
+</script>
+</body>
+</html>
