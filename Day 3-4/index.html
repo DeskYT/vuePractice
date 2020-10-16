@@ -19,7 +19,7 @@
   }
   table { margin-top: 15px}
   th, td { padding: 5px 10px; text-align: center}
-  button {
+  .btn {
     font-size: 16px;
     padding: 6px 10px;
     border: 0;
@@ -36,10 +36,15 @@
     border-radius: 20px;
     padding: 5px 15px;
   }
-  .c {
-    display: flex;
+  .addStudentForm{
     flex-direction: column;
-    align-items: center;
+    display: none;
+  }
+  .addStudentForm > *{
+    margin-top: 10px;
+    border-radius: 15px;
+    padding: 5px;
+    outline: none;
   }
   .exclude{
     display: none;
@@ -49,7 +54,21 @@
 <body>
   <div id="app">
     <h1>Студенти</h1>
-      <input class="searchInput" type="text" v-model = "coincidence" placeholder="Поиск" size = 35>
+    <button class="btn" v-on:click="showForm">Добавить студента</button>
+    <form class="addStudentForm" onsubmit="return false;">
+
+      <input type="text" placeholder="ФИО" v-model.trim="newStudent.name">
+      <input placeholder="Группа" type="text" v-model.trim="newStudent.group">
+      <input placeholder="Дата рождения" type="text" v-model.trim="newStudent.birthday">
+      <label>
+        <span>Сдал</span>
+        <input placeholder="Сдал" type="checkbox" v-model="newStudent.offset">
+      </label>
+
+      <input class="btn" type="submit" v-on:click="addStudent" value="Добавить">
+    </form>
+
+    <input class="searchInput" type="text" v-model = "coincidence" placeholder="Поиск" size = 35>
     <table border = '1'>
       <thead>
         <th>№</th>
@@ -66,7 +85,7 @@
           <td>
             <input type="checkbox" :checked = "stud.offset" disabled>
           </td>
-          <td><button type="button" @click = "deleteStudent(stud.id)">Удалить</button></td>
+          <td><button class="btn" type="button" @click = "deleteStudent(stud.id)">Удалить</button></td>
         </tr>
       </tbody>
     </table>
@@ -77,10 +96,17 @@
   const app = new Vue({
     el: '#app',
     data: {
+      newStudent: {
+        id: Number,
+        name: "",
+        group: "",
+        birthday: "",
+        offset: Boolean
+      },
       students: [
         {
           id: 0,
-          name: "John Smith",
+          name: 'John Smith',
           group: 'RPZ 17 - 2/9',
           birthday: '03.02.2001',
           offset: true
@@ -117,6 +143,16 @@
             return;
           }
         });
+      },
+      addStudent: function (){
+        if (this.newStudent.name === "" || this.newStudent.group === "" || this.newStudent.birthday === "") return;
+        this.newStudent.id = this.students[this.students.length-1].id+1;
+        console.log(this.newStudent)
+        this.students.push({...this.newStudent});
+      },
+      showForm: ()=>{
+        const form = document.querySelector(".addStudentForm");
+        form.style.display = "flex";
       }
     }
   })
