@@ -31,7 +31,7 @@ import axios from "axios";
         if (!currencyFrom || !currencyTo) return;
         console.log("From: ", currencyFrom, "To: ", currencyTo, "Amount: ", amount)
         const toUAH = parseFloat(currencyFrom.buy)*parseFloat(amount);
-        const res = 1/parseFloat(currencyTo.sale)*toUAH;
+        const res = (1/parseFloat(currencyTo.sale)*toUAH).toFixed(2);
         this.conversion.message = `${amount} ${currencyFrom.ccy} equals ${res} ${currencyTo.ccy}`;
         console.log(this.conversion.message);
     }
