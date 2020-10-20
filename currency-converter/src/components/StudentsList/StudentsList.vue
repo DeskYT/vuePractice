@@ -20,6 +20,7 @@
       <th>Фото</th>
       <th>ФИО</th>
       <th>Группа</th>
+      <th>Оценка</th>
       <th>Сдал\Не сдал</th>
       <th>Изменить</th>
       <th>Удалить</th>
@@ -27,16 +28,19 @@
       <tbody>
       <tr v-for = "(stud, index) in students" v-bind:key="stud._id" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
         <td>{{ index }}</td>
-        <td><img style="width: 100px; height: 100px" v-bind:src="stud.photo" alt=""></td>
         <template v-if="!stud.isEditing">
+          <td><img style="width: 100px; height: 100px" v-bind:src="stud.photo" alt=""></td>
           <td>{{ stud.name }}</td>
           <td>{{ stud.group }}</td>
+          <td>{{ stud.mark }}</td>
           <td><input type="checkbox" :checked = "stud.isDonePr" disabled></td>
           <td><button class="btn" type="button" @click = "editStudent(index)">Изменить</button></td>
         </template>
         <template v-else>
+          <td><input type="text" v-model="stud.photo"></td>
           <td><input type="text" v-model="stud.name"></td>
           <td><input type="text" v-model="stud.group"></td>
+          <td><input type="text" v-model="stud.mark"></td>
           <td><input type="checkbox" v-model="stud.isDonePr" ></td>
           <td><button class="btn" type="button" @click = "updateStudent(stud)">Сохранить</button></td>
         </template>
