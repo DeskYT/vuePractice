@@ -72,6 +72,7 @@
     <table border = '1'>
       <thead>
         <th>№</th>
+        <th>Фото</th>
         <th>ФИО</th>
         <th>Группа</th>
         <th>Сдал\Не сдал</th>
@@ -80,6 +81,7 @@
       <tbody>
         <tr v-for = "(stud, index) in students" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
           <td>{{ index }}</td>
+          <td><img src="{{stud.photo}}" alt=""></td>
           <td>{{ stud.name }}</td>
           <td>{{ stud.group }}</td>
           <td>

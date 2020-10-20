@@ -9,7 +9,7 @@
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
 import CurrencyConverter from "@/components/CurrencyConverter/CurrencyConverter.vue";
-import StudentsList from "@/components/StudentsList.vue";
+import StudentsList from "@/components/StudentsList/StudentsList.vue";
 
 export default {
   name: 'App',

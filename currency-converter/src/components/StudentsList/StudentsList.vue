@@ -1,49 +1,44 @@
 <template>
   <div class="studentsContainer">
     <h1>Студенти</h1>
+    <button class="btn" v-on:click="showForm">Добавить студента</button>
+    <form class="addStudentForm" onsubmit="return false;">
 
+      <input type="text" placeholder="ФИО" v-model.trim="newStudent.name">
+      <input placeholder="Группа" type="text" v-model.trim="newStudent.group">
+      <label>
+        <span>Сдал</span>
+        <input placeholder="Сдал" type="checkbox" v-model="newStudent.isDonePr">
+      </label>
+
+      <input class="btn" type="submit" v-on:click="addStudent" value="Добавить">
+    </form>
     <input class="searchInput" type="text" v-model = "coincidence" placeholder="Поиск" size = 35>
     <table border = '1'>
       <thead>
       <th>№</th>
+      <th>Фото</th>
       <th>ФИО</th>
       <th>Группа</th>
       <th>Сдал\Не сдал</th>
+      <th>Удалить</th>
       </thead>
       <tbody>
-      <tr v-for = "(stud, index) in students" v-bind:key="index" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
+      <tr v-for = "(stud, index) in students" v-bind:key="stud._id" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
         <td>{{ index }}</td>
+        <td><img style="width: 100px; height: 100px" v-bind:src="stud.photo" alt=""></td>
         <td>{{ stud.name }}</td>
         <td>{{ stud.group }}</td>
         <td>
-          <input type="checkbox" :checked = "stud.offset" disabled>
+          <input type="checkbox" :checked = "stud.isDonePr" disabled>
         </td>
+        <td><button class="btn" type="button" @click = "deleteStudent(stud._id)">Удалить</button></td>
       </tr>
       </tbody>
     </table>
   </div>
 </template>
-
-<script>
-import axios from "axios";
-export default {
-  name: 'StudentsList',
-  data() {
-    return {
-      students: [],
-      coincidence: ""
-    }
-  },
-  mounted: function () {
-    axios.get("http://46.101.212.195:3000/students").then(response => {
-      console.log(response.data)
-      this.students = response.data
-    });
-  },
-}
-
-</script>
-
+<script defer src="@/components/StudentsList/StudentsList.js"></script>
 <style scoped>
 * {
   margin: 0;
