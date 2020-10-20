@@ -40,7 +40,7 @@
           <td><input type="text" v-model="stud.new.name"></td>
           <td><input type="text" v-model="stud.new.group"></td>
           <td><input type="text" v-model="stud.new.mark"></td>
-          <td><input type="checkbox" v-model="stud.isDonePr" ></td>
+          <td><input type="checkbox" v-model="stud.new.isDonePr" ></td>
           <td><button class="btn" type="button" @click = "updateStudent(stud.new); stud.isEditing = false;">Сохранить</button></td>
         </template>
         <td><button class="btn" type="button" @click = "deleteStudent(stud._id)">Удалить</button></td>
