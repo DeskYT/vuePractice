@@ -1,4 +1,5 @@
 import axios from "axios";
+const HOST = "46.101.212.195:3000";
 export default {
     name: 'StudentsList',
     data() {
@@ -21,7 +22,7 @@ export default {
             form.style.display = "none";
         },
         getStudents: function () {
-            axios.get("http://46.101.212.195:3000/students").then(response => {
+            axios.get(`http://${HOST}/students`).then(response => {
                 console.log(response.data)
                 this.students = response.data
             });
@@ -31,7 +32,7 @@ export default {
             })
         },
         addStudent: function (){
-            axios.post("http://46.101.212.195:3000/students", this.newStudent).then(response => {
+            axios.post(`http://${HOST}/students`, this.newStudent).then(response => {
                 console.log(response.data);
                 this.getStudents();
                 this.newStudent = {};
@@ -42,13 +43,13 @@ export default {
             this.students[index].isEditing = true;
         },
         updateStudent (student){
-            axios.put(`http://46.101.212.195:3000/students/${student._id}`, student).then(response => {
+            axios.put(`http://${HOST}/students/${student._id}`, student).then(response => {
                 console.log(response.data)
                 this.getStudents();
             });
         },
         deleteStudent: function (id){
-            axios.delete(`http://46.101.212.195:3000/students/${id}`).then(response => {
+            axios.delete(`http://${HOST}/students/${id}`).then(response => {
                 console.log(response.data)
                 this.getStudents()
             });
