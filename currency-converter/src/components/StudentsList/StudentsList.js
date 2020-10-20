@@ -25,6 +25,10 @@ export default {
                 console.log(response.data)
                 this.students = response.data
             });
+            this.students = this.students.map(it=>{
+                it.isEditing = false;
+                return it;
+            })
         },
         addStudent: function (){
             axios.post("http://46.101.212.195:3000/students", this.newStudent).then(response => {
@@ -34,9 +38,13 @@ export default {
                 this.hideForm();
             });
         },
-        updateStudent: function (id, student){
-            axios.put("http://46.101.212.195:3000/students", student).then(response => {
+        editStudent: function (index){
+            this.students[index].isEditing = true;
+        },
+        updateStudent (student){
+            axios.put(`http://46.101.212.195:3000/students/${student._id}`, student).then(response => {
                 console.log(response.data)
+                this.getStudents();
             });
         },
         deleteStudent: function (id){

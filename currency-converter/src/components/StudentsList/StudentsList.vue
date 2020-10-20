@@ -21,17 +21,27 @@
       <th>ФИО</th>
       <th>Группа</th>
       <th>Сдал\Не сдал</th>
+      <th>Изменить</th>
       <th>Удалить</th>
       </thead>
       <tbody>
       <tr v-for = "(stud, index) in students" v-bind:key="stud._id" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
         <td>{{ index }}</td>
         <td><img style="width: 100px; height: 100px" v-bind:src="stud.photo" alt=""></td>
-        <td>{{ stud.name }}</td>
-        <td>{{ stud.group }}</td>
-        <td>
-          <input type="checkbox" :checked = "stud.isDonePr" disabled>
+        <td v-if="!stud.isEditing">{{ stud.name }}</td>
+        <td v-else><input type="text" v-model="stud.name"></td>
+        <td v-if="!stud.isEditing">{{ stud.group }}</td>
+        <td v-else><input type="text" v-model="stud.group"></td>
+        <td v-if="!stud.isEditing"><input type="checkbox" :checked = "stud.isDonePr" disabled></td>
+        <td v-else><input type="checkbox" v-model="stud.isDonePr" ></td>
+
+        <td v-if="!stud.isEditing">
+          <button class="btn" type="button" @click = "editStudent(index)">Изменить</button>
         </td>
+        <td v-else>
+          <button class="btn" type="button" @click = "updateStudent(stud)">Сохранить</button>
+        </td>
+
         <td><button class="btn" type="button" @click = "deleteStudent(stud._id)">Удалить</button></td>
       </tr>
       </tbody>
