@@ -36,12 +36,12 @@
           <td><button class="btn" type="button" @click = "editStudent(index)">Изменить</button></td>
         </template>
         <template v-else>
-          <td><input type="text" v-model="stud.photo"></td>
-          <td><input type="text" v-model="stud.name"></td>
-          <td><input type="text" v-model="stud.group"></td>
-          <td><input type="text" v-model="stud.mark"></td>
+          <td><input type="text" v-model="stud.new.photo"></td>
+          <td><input type="text" v-model="stud.new.name"></td>
+          <td><input type="text" v-model="stud.new.group"></td>
+          <td><input type="text" v-model="stud.new.mark"></td>
           <td><input type="checkbox" v-model="stud.isDonePr" ></td>
-          <td><button class="btn" type="button" @click = "updateStudent(stud)">Сохранить</button></td>
+          <td><button class="btn" type="button" @click = "updateStudent(stud.new); stud.isEditing = false;">Сохранить</button></td>
         </template>
         <td><button class="btn" type="button" @click = "deleteStudent(stud._id)">Удалить</button></td>
       </tr>

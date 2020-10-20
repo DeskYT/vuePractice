@@ -11,6 +11,10 @@ export default {
     },
     mounted: function () {
         this.getStudents();
+        const test = async () => {
+            this.getStudents(false);
+        }
+        setInterval(test, 1000);
     },
     methods: {
         showForm: ()=>{
@@ -21,15 +25,25 @@ export default {
             const form = document.querySelector(".addStudentForm");
             form.style.display = "none";
         },
-        getStudents: function () {
+        getStudents: function (refresh = true) {
             axios.get(`http://${HOST}/students`).then(response => {
-                console.log(response.data)
-                this.students = response.data
+                if (this.students.length === 0 || refresh) {
+                    this.students = response.data;
+                    this.students = this.students.map(it=>{
+                        it.isEditing = false;
+                        return it;
+                    })
+                    return;
+                }
+                this.students = response.data.map((it, index) => this.getProp(it, (this.students[index] || {})))
             });
-            this.students = this.students.map(it=>{
-                it.isEditing = false;
-                return it;
-            })
+
+        },
+        getProp: function (o, container) {
+            for(const prop in o) {
+                container[prop] = o[prop]
+            }
+            return container;
         },
         addStudent: function (){
             axios.post(`http://${HOST}/students`, this.newStudent).then(response => {
@@ -41,6 +55,7 @@ export default {
         },
         editStudent: function (index){
             this.students[index].isEditing = true;
+            this.students[index].new = {...this.students[index]};
         },
         updateStudent (student){
             axios.put(`http://${HOST}/students/${student._id}`, student).then(response => {
