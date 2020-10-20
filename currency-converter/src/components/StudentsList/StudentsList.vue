@@ -10,7 +10,6 @@
         <span>Сдал</span>
         <input placeholder="Сдал" type="checkbox" v-model="newStudent.isDonePr">
       </label>
-
       <input class="btn" type="submit" v-on:click="addStudent" value="Добавить">
     </form>
     <input class="searchInput" type="text" v-model = "coincidence" placeholder="Поиск" size = 35>
