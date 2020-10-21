@@ -4,19 +4,22 @@
   <!--CurrencyConverter /-->
   <StudentsList />
   <CurrencyConverter />
+  <NovaPoshta />
 </template>
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
 import CurrencyConverter from "@/components/CurrencyConverter/CurrencyConverter.vue";
 import StudentsList from "@/components/StudentsList/StudentsList.vue";
+import NovaPoshta from "@/components/NovaPoshta/NovaPoshta.vue";
 
 export default {
   name: 'App',
   components: {
     //HelloWorld
     StudentsList,
-    CurrencyConverter
+    CurrencyConverter,
+    NovaPoshta
   }
 }
 </script>
