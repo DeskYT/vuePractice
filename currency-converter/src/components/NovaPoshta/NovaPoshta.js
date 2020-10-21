@@ -12,7 +12,9 @@ export default {
                 isSearching: false,
                 request: ""
             },
-            selectedCity: null
+            selectedCity: null,
+            warehouses: [],
+            selectedWarehouse: null
         }
     },
 
@@ -22,12 +24,6 @@ export default {
     },
     methods: {
 
-        /*getStudents: function () {
-            axios.get(`https://${HOST}/students`).then(response => {
-                this.students = response.data;
-            });
-
-        },*/
         getAreas: function (){
             axios.post(`https://${HOST}/`, {
                 apiKey: API_KEY,
@@ -44,6 +40,8 @@ export default {
 
         },
         getCities: function (){
+            this.selectedCity = null;
+            this.searchCity.request = "";
             console.log(this.selectedArea);
             axios.post(`https://${HOST}/`, {
                 "apiKey": API_KEY,
@@ -61,14 +59,38 @@ export default {
                         console.error(response.data.errors);
                 });
         },
+        getWarehouses: function (){
+            this.selectedWarehouse = null;
+            axios.post(`https://${HOST}/`, {
+                "apiKey": API_KEY,
+                "modelName": "AddressGeneral",
+                "calledMethod": "getWarehouses",
+                "methodProperties": {
+                    "CityRef": this.selectedCity.Ref
+                }
+            })
+                .then(response => {
+                    console.log(response.data.data)
+                    if(response.data.success)
+                        this.warehouses = response.data.data
+                    else
+                        console.error(response.data.errors);
+                });
+        },
         handleSearchCityFocus(e){
-            console.log(e);
+            e.preventDefault()
+            if(e.type==="focusin")
+                this.searchCity.isSearching = true;
+            /*if(e.type==="focusout")
+                this.searchCity.isSearching = false*/
+
         },
         handleCityChoosing: function (city){
             console.log(this.searchCity.isSearching)
             this.selectedCity = city
             this.searchCity.request = city.Description
             this.searchCity.isSearching = false;
+            this.getWarehouses();
             console.log(this.searchCity.isSearching)
         }
     }

@@ -18,6 +18,25 @@ export default {
         setInterval(test, 1000);
     },
     methods: {
+        /*checkStudentsList: function(prev, cur){
+            if (cur === prev) return;
+            if (cur.length !== prev.length){
+                cur.forEach(it=>this.deleteStudent(it._id));
+
+                prev.forEach(it=>{
+                    this.postStudent({
+                        name: it.name,
+                        group: it.group,
+                        mark: it.mark,
+                        isDonePr: it.isDonePr,
+                        photo: it.photo
+                    })
+                });
+                console.log(prev)
+            }
+
+
+        },*/
         showForm: ()=>{
             const form = document.querySelector(".addStudentForm");
             form.style.display = "flex";
@@ -28,9 +47,15 @@ export default {
         },
         getStudents: function () {
             axios.get(`http://${HOST}/students`).then(response => {
+                /* const prev = this.students;
+               if(prev.length !== 0){
+                    this.students = response.data;
+                    const cur = this.students
+                    this.checkStudentsList(prev, cur);
+                    return;
+                }*/
                 this.students = response.data;
             });
-
         },
         imageSelect: function(e) {
             e.preventDefault()
@@ -69,15 +94,17 @@ export default {
 
             } catch (e){console.error(e)}
         },
-        addStudent: function (){
-            axios.post(`http://${HOST}/students`, this.newStudent).then(response => {
+        addStudent(){
+            this.postStudent(this.newStudent);
+            this.newStudent = {};
+        },
+        postStudent: function (student){
+            axios.post(`http://${HOST}/students`, student).then(response => {
                 console.log(response.data);
-                //this.getStudents();
                 if(this.validateStudent(response.data))
                     this.students.push(response.data)
                 else
                     alert(`${response.data.name}: ${response.data.message}`)
-                this.newStudent = {};
                 this.hideForm();
             });
         },
