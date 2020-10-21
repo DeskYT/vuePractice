@@ -32,6 +32,18 @@ export default {
             });
 
         },
+        imageSelect: function(e) {
+            e.preventDefault()
+             const file = e.target.files[0]
+            const newStudent = this.newStudent
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = function (e) {
+                    newStudent.photo = e.target.result
+                }
+                reader.readAsDataURL(file);
+            }
+        },
         getProp: function (o, container) {
             for(const prop in o) {
                 container[prop] = o[prop]

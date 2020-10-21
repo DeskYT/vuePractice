@@ -36,7 +36,11 @@
           <td><button class="btn" type="button" @click = "editStudent(index)">Изменить</button></td>
         </template>
         <template v-else>
-          <td><input type="text" v-model="newStudent.photo"></td>
+          <td>
+            <input type="text" v-model="newStudent.photo">
+            <input type="file" id="file" name="file" @change="imageSelect"
+                   accept=".jpg, .jpeg, .png, .gif">
+          </td>
           <td><input type="text" v-model="newStudent.name"></td>
           <td><input type="text" v-model="newStudent.group"></td>
           <td><input type="text" v-model="newStudent.mark"></td>
