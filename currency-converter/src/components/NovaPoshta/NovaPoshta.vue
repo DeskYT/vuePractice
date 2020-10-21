@@ -9,11 +9,11 @@
     <div class="citiesListContainer">
       <input type="text" :disabled="this.selectedArea === null ? '' : disabled" v-model="searchCity.request" v-on:focusin="handleSearchCityFocus" placeholder="Выберите город">
       <ul class="citiesList" v-if="searchCity.isSearching===true">
-        <li class="cityContainer" v-for = "(city, index) in cities"
+        <li class="cityContainer" v-for = "(city) in cities"
              v-bind:key="city.Ref"
              :class = "city.Description.toLowerCase().includes(searchCity.request.toLowerCase())
            || city.DescriptionRu.toLowerCase().includes(searchCity.request.toLowerCase()) ? '' : 'exclude'" v-on:click="handleCityChoosing(city)">
-          {{city.Description}} {{index}}
+          {{city.Description}}
         </li>
       </ul>
     </div>

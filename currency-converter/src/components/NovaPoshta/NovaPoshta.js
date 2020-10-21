@@ -79,8 +79,11 @@ export default {
         },
         handleSearchCityFocus(e){
             e.preventDefault()
-            if(e.type==="focusin")
+            if(e.type==="focusin"){
                 this.searchCity.isSearching = true;
+                this.searchCity.request = "";
+            }
+
             /*if(e.type==="focusout")
                 this.searchCity.isSearching = false*/
 
