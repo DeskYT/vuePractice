@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             students: [],
+            editingStudent: null,
             coincidence: "",
             newStudent: {}
         }
@@ -12,7 +13,7 @@ export default {
     mounted: function () {
         this.getStudents();
         const test = async () => {
-            this.getStudents(false);
+            this.getStudents();
         }
         setInterval(test, 1000);
     },
@@ -25,17 +26,9 @@ export default {
             const form = document.querySelector(".addStudentForm");
             form.style.display = "none";
         },
-        getStudents: function (refresh = true) {
+        getStudents: function () {
             axios.get(`http://${HOST}/students`).then(response => {
-                if (this.students.length === 0 || refresh) {
-                    this.students = response.data;
-                    this.students = this.students.map(it=>{
-                        it.isEditing = false;
-                        return it;
-                    })
-                    return;
-                }
-                this.students = response.data.map((it, index) => this.getProp(it, (this.students[index] || {})))
+                this.students = response.data;
             });
 
         },
@@ -45,22 +38,50 @@ export default {
             }
             return container;
         },
+        validateStudent: function (stud) {
+            try {
+                let isValid = true;
+                const properties = new Map()
+                properties.set("photo", "string")
+                properties.set("mark", "number")
+                properties.set("isDonePr", "boolean")
+                properties.set("_id", "string")
+                properties.set("name", "string")
+                properties.forEach((type, key) => {
+                    if (!Object.prototype.hasOwnProperty.call(stud,key) || typeof(stud[key]) !== type){
+                        isValid = false;
+                        return;
+                    }
+                });
+                return isValid;
+
+            } catch (e){console.error(e)}
+        },
         addStudent: function (){
             axios.post(`http://${HOST}/students`, this.newStudent).then(response => {
                 console.log(response.data);
-                this.getStudents();
+                //this.getStudents();
+                if(this.validateStudent(response.data))
+                    this.students.push(response.data)
+                else
+                    alert(`${response.data.name}: ${response.data.message}`)
                 this.newStudent = {};
                 this.hideForm();
             });
         },
         editStudent: function (index){
-            this.students[index].isEditing = true;
-            this.students[index].new = {...this.students[index]};
+            this.editingStudent = index;
+            this.newStudent = {...this.students[index]};
         },
-        updateStudent (student){
-            axios.put(`http://${HOST}/students/${student._id}`, student).then(response => {
+        updateStudent (){
+            axios.put(`http://${HOST}/students/${this.newStudent._id}`, this.newStudent).then(response => {
                 console.log(response.data)
-                this.getStudents();
+                if(this.validateStudent(response.data))
+                    this.students[this.editingStudent] = response.data;
+                else
+                    alert(`${response.data.name}: ${response.data.message}`)
+                this.editingStudent = null;
+                this.newStudent = {};
             });
         },
         deleteStudent: function (id){
