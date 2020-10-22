@@ -1,4 +1,5 @@
 import axios from "axios";
+import StudentAvatar from "@/components/StudentAvatar/StudentAvatar.vue";
 const HOST = "46.101.212.195:3000";
 export default {
     name: 'StudentsList',
@@ -7,9 +8,14 @@ export default {
             students: [],
             editingStudent: null,
             coincidence: "",
-            newStudent: {}
+            newStudent: {},
+            scaledAvatar: {
+                show: false,
+                photo: ""
+            },
         }
     },
+    components: {StudentAvatar},
     mounted: function () {
         this.getStudents();
         const test = async () => {
@@ -74,6 +80,10 @@ export default {
                 container[prop] = o[prop]
             }
             return container;
+        },
+        handleScaledAvatar: function(photo){
+          this.scaledAvatar.photo = photo;
+          this.scaledAvatar.show = true;
         },
         validateStudent: function (stud) {
             try {
