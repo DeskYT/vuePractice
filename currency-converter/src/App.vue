@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/">Students List</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/currencyconverter">Currency Converter</router-link> |
+    <router-link to="/novaposhta">Нова Пошта</router-link>
   </div>
   <router-view/>
 </template>

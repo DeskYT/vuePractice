@@ -26,13 +26,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 3%;
 }
 .studentDetailedPhotoContainer{
+  border-radius: 3%;
   width: 720px;
   height: 720px;
   margin: 0 auto;
   background-color: #414141;
-  border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;

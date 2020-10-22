@@ -19,8 +19,12 @@ import axios from "axios";
 
         }
     },
-
-    mounted: function (){
+     filters : {
+         roundMoney : function(value) {
+             return value.toFixed(2);
+         }
+     },
+     mounted: function (){
         axios.get("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5").then(response => {
             console.log(response.data)
             this.currencyRates = response.data
