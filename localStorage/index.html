@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app" >
+    <link v-if="st" rel="stylesheet" href="css/styles1.css">
+    <link v-else rel="stylesheet" href="css/styles2.css">
+    <button v-on:click="toggleStyle">Переключить стиль</button>
+</div>
+
+<script defer>
+    const app = new Vue({
+        el:'#app',
+        data:{
+            st: (localStorage.getItem('sts') === 'true'),
+        },
+        methods:{
+            toggleStyle:function(){
+                this.st = !this.st;
+                localStorage.setItem('sts', this.st)
+            },
+        }
+    })
+</script>
+
+</body>
+</html>
