@@ -27,7 +27,7 @@
       <tbody>
       <tr v-for = "(stud, index) in students" v-bind:key="stud._id" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
         <td>{{ index }}</td>
-        <template v-if="editingStudent !== index">
+        <template v-if="editingStudent !== stud._id">
           <td><img style="width: 100px; height: 100px" v-on:click="handleScaledAvatar(stud.photo)" v-bind:src="stud.photo" alt=""></td>
           <td>
             <router-link v-bind:to="'/student-info/'+stud._id">
@@ -37,7 +37,7 @@
           <td>{{ stud.group }}</td>
           <td>{{ stud.mark }}</td>
           <td><input type="checkbox" :checked = "stud.isDonePr" disabled></td>
-          <td><button class="btn" type="button" @click = "editStudent(index)">Изменить</button></td>
+          <td><button class="btn" type="button" @click = "editStudent(stud)">Изменить</button></td>
         </template>
         <template v-else>
           <td>

@@ -118,9 +118,9 @@ export default {
                 this.hideForm();
             });
         },
-        editStudent: function (index){
-            this.editingStudent = index;
-            this.newStudent = {...this.students[index]};
+        editStudent: function (student){
+            this.editingStudent = student._id;
+            this.newStudent = {...student};
         },
         updateStudent (){
             axios.put(`http://${HOST}/students/${this.newStudent._id}`, this.newStudent).then(response => {
