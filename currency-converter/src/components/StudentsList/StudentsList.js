@@ -15,15 +15,26 @@ export default {
             },
         }
     },
+    computed:{
+        studentsCount () {
+            return this.$store.getters.getCount
+        },
+        theme (){
+            return this.$store.getters.getTheme
+        }
+    },
     components: {StudentAvatar},
     mounted: function () {
         this.getStudents();
         const test = async () => {
             this.getStudents();
         }
-        setInterval(test, 1000);
+        setInterval(test, 2000);
     },
     methods: {
+        changeTheme: function(){
+            this.$store.commit('setTheme', !this.$store.getters.getTheme);
+        },
         /*checkStudentsList: function(prev, cur){
             if (cur === prev) return;
             if (cur.length !== prev.length){

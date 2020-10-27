@@ -1,6 +1,8 @@
 <template>
   <div class="studentsContainer">
     <h1>Студенти</h1>
+    <link rel="stylesheet" :href="`/static/css/${theme ? 'style1' : 'style2'}.css`">
+    <button class="btn" @click="changeTheme()">Изменить стиль</button>
     <button class="btn" v-on:click="showForm">Добавить студента</button>
     <form class="addStudentForm" onsubmit="return false;">
 
@@ -56,10 +58,13 @@
       </tbody>
       <StudentAvatar v-if="scaledAvatar.show" :photo="scaledAvatar.photo" @close="scaledAvatar.show = false" />
     </table>
+    <div v-if="theme">THEME TRUE</div>
+    <div>{{theme}}</div>
   </div>
 </template>
+
 <script defer src="@/components/StudentsList/StudentsList.js"></script>
-<style scoped>
+<style>
 * {
   margin: 0;
   padding: 0;
@@ -70,6 +75,8 @@
   flex-direction: column;
   align-items: center;
   padding-top: 20px;
+  width: 100%;
+  min-height: 100vh;
 }
 table { margin-top: 15px}
 th, td { padding: 5px 10px; text-align: center}
@@ -81,6 +88,9 @@ th, td { padding: 5px 10px; text-align: center}
   background-color: gray;
   color: white;
   outline: none;
+}
+.btn + .btn{
+  margin-top: 15px;
 }
 
 .searchInput {

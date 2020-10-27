@@ -36,9 +36,9 @@
           </tr>
           <tr>
             <td>
-              <img class="iconBlock" v-bind:src="'/static/icons/DayPack/' + city.weather.weather[0].icon + '.svg'" alt="">
+              <img class="iconBlock" v-bind:src="'/static/images/icons/DayPack/' + city.weather.weather[0].icon + '.svg'" alt="">
             </td>
-            <td>Main</td>
+            <td>State</td>
             <td>{{city.weather.weather[0].description}}</td>
           </tr>
           <tr>

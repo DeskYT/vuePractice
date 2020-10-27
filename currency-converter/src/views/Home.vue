@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+  <!--div class="home">
+    <img alt="Vue logo" src="../assets/logo.png"-->
     <StudentsList />
-  </div>
+  <!--/div-->
 </template>
 
 <script>
