@@ -2,6 +2,8 @@
   <div class="studentsContainer">
     <h1>Студенти</h1>
     <link rel="stylesheet" :href="`/static/css/${theme ? 'style1' : 'style2'}.css`">
+    <button class="btn" @click="toggleNullify()" v-if="nullify">Выключить нуллификацию</button>
+    <button class="btn" @click="toggleNullify()" v-else>Включить нуллификацию</button>
     <button class="btn" @click="changeTheme()">Изменить стиль</button>
     <button class="btn" v-on:click="showForm">Добавить студента</button>
     <form class="addStudentForm" onsubmit="return false;">
@@ -26,9 +28,10 @@
       <th>Сдал\Не сдал</th>
       <th>Изменить</th>
       <th>Удалить</th>
+      <th>Обнулить</th>
       </thead>
       <tbody>
-      <tr v-for = "(stud, index) in students" v-bind:key="stud._id" :class = "stud.name.toLowerCase().includes(coincidence.toLowerCase()) || stud.group.toLowerCase().includes(coincidence.toLowerCase()) ? '' : 'exclude'">
+      <tr v-for = "(stud, index) in filtered" v-bind:key="stud._id">
         <td>{{ index }}</td>
         <template v-if="editingStudent !== stud._id">
           <td><img style="width: 100px; height: 100px" v-on:click="handleScaledAvatar(stud.photo)" v-bind:src="stud.photo" alt=""></td>
@@ -55,6 +58,7 @@
           <td><button class="btn" type="button" @click = "updateStudent()">Сохранить</button></td>
         </template>
         <td><button class="btn" type="button" @click = "deleteStudent(stud._id)">Удалить</button></td>
+        <td><button class="btn" type="button" @click = "nullifyStudent(stud)">Обнулить</button></td>
       </tr>
       </tbody>
       <StudentAvatar v-if="scaledAvatar.show" :photo="scaledAvatar.photo" @close="scaledAvatar.show = false" />
@@ -79,7 +83,10 @@
   width: 100%;
   min-height: 100vh;
 }
-table { margin-top: 15px}
+table {
+  margin-top: 15px;
+  background-color: rgba(185, 210, 217, 0.7);
+}
 th, td { padding: 5px 10px; text-align: center}
 .btn {
   font-size: 16px;

@@ -6,7 +6,8 @@ export default createStore({
   state: {
     count: 0,
     theme:(localStorage.getItem('theme') === 'true'),
-    user: null
+    user: null,
+    nullify: false
   },
   mutations: {
     setCount: (state, count) => state.count = count,
@@ -15,6 +16,7 @@ export default createStore({
       //localStorage.setItem('theme', theme)
     },
     setUser: (state, user) => state.user = user,
+    setNullify: (state, nullify) => state.nullify = nullify,
   },
   getters: {
     getCount: (state) =>
@@ -26,6 +28,7 @@ export default createStore({
     },
     getUser: (state) => {
       return state.user
-    }
+    },
+    getNullify: state => state.nullify
   }
 })

@@ -21,19 +21,52 @@ export default {
         },
         theme (){
             return this.$store.getters.getTheme
+        },
+        nullify (){
+            return this.$store.getters.getNullify
+        },
+        filtered (){
+            return this.students.filter(it=>{
+                const stud = {...it}
+                stud.name = stud.name ? stud.name: '';
+                stud.group = stud.group ? stud.group: '';
+                return stud.name.toLowerCase().includes(this.coincidence.toLowerCase()) || stud.group.toLowerCase().includes(this.coincidence.toLowerCase())
+            })
         }
     },
     components: {StudentAvatar},
     mounted: function () {
         this.getStudents();
-        const test = async () => {
-            this.getStudents();
-        }
-        setInterval(test, 2000);
+        const test = async () => this.getStudents();
+        setInterval(test, 1000);
     },
     methods: {
         changeTheme: function(){
             this.$store.commit('setTheme', !this.$store.getters.getTheme);
+        },
+        toggleNullify: function(){
+            this.$store.commit('setNullify', !this.$store.getters.getNullify);
+        },
+        checkStudentsList: function(prev, cur){
+            console.log(cur, prev)
+            if (cur === prev) return;
+            //if (cur.length !== prev.length){
+                cur.forEach(it=>{
+                    if(!this.curInclude(it)){
+                        console.log(it)
+                        this.nullifyStudent(it)
+                    }
+                });
+                console.log(prev)
+           // }
+        },
+        curInclude: function(obj){
+            let res = false
+            this.students.forEach(it=>{
+                if (obj.name === it.name && obj.photo === it.photo && obj.group === it.group && obj.mark === it.mark && obj.isDonePr === it.isDonePr)
+                    return res = true;
+            })
+            return res;
         },
         /*checkStudentsList: function(prev, cur){
             if (cur === prev) return;
@@ -64,13 +97,22 @@ export default {
         },
         getStudents: function () {
             axios.get(`http://${HOST}/students`).then(response => {
-                /* const prev = this.students;
-               if(prev.length !== 0){
-                    this.students = response.data;
-                    const cur = this.students
-                    this.checkStudentsList(prev, cur);
-                    return;
-                }*/
+                if(this.$store.getters.getNullify){
+                    //console.log("NULLIFY: ", this.$store.getters.getNullify)
+                    const prev = this.students;
+                    if(prev.length !== 0){
+                        const cur = response.data
+                        //if(prev.length !== cur.length){
+                            this.checkStudentsList(prev, cur);
+                        //}
+                    }
+                }
+                /*this.students = []
+                response.data.forEach(it=>{
+                    if(it.name === null) it.name = '';
+                    if(it.group === null) it.group = '';
+                    this.students.push(it)
+                })*/
                 this.students = response.data;
                 this.$store.commit('setCount', this.students.length);
             });
@@ -134,7 +176,30 @@ export default {
             this.editingStudent = student._id;
             this.newStudent = {...student};
         },
+        nullifyStudent (stud){
+            //this.newStudent.isDonePr = null;
+            //this.newStudent.name = null;
+            const empty = {
+                name: null,
+                group: null,
+                mark: null,
+                isDonePr: null,
+                photo: null,
+                __v: null,
+            }
+            axios.put(`http://${HOST}/students/${stud._id}`, empty).then(response => {
+                console.log(response.data)
+                if(this.validateStudent(response.data))
+                    this.students[this.editingStudent] = response.data;
+                else
+                   console.log(`${response.data.name}: ${response.data.message}`)
+                this.editingStudent = null;
+                this.newStudent = {};
+            });
+        },
         updateStudent (){
+            /*delete this.newStudent.photo
+            delete this.newStudent.name*/
             axios.put(`http://${HOST}/students/${this.newStudent._id}`, this.newStudent).then(response => {
                 console.log(response.data)
                 if(this.validateStudent(response.data))
