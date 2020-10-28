@@ -13,6 +13,7 @@ export default createStore({
       state.theme = theme
       //localStorage.setItem('theme', theme)
     },
+    setUser: (state, user) => state.user = user,
   },
   getters: {
     getCount: (state) =>
@@ -20,8 +21,10 @@ export default createStore({
       return state.count
     },
     getTheme: (state) => {
-
       return state.theme
     },
+    getUser: (state) => {
+      return state.user
+    }
   }
 })
