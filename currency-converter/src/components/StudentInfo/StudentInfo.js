@@ -19,6 +19,11 @@ export default {
     props: {
         id: '',
     },
+    computed: {
+        studentsCount () {
+            return this.$store.getters.getCount
+        },
+    },
 
     mounted: function () {
         this.getStudent();

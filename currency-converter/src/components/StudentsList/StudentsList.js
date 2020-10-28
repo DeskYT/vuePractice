@@ -72,6 +72,7 @@ export default {
                     return;
                 }*/
                 this.students = response.data;
+                this.$store.commit('setCount', this.students.length);
             });
         },
         imageSelect: function(e) {

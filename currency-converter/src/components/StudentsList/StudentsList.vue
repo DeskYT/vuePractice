@@ -15,6 +15,7 @@
       <input class="btn" type="submit" v-on:click="addStudent" value="Добавить">
     </form>
     <input class="searchInput" type="text" v-model = "coincidence" placeholder="Поиск" size = 35>
+    <h4 style="margin-top: 15px">Всего студентов: {{studentsCount}}</h4>
     <table border = '1'>
       <thead>
       <th>№</th>

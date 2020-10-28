@@ -10,6 +10,7 @@
       </div>
     </div>
   </div>
+  <h4 style="margin-top: 15px">Всего студентов: {{studentsCount}}</h4>
   <StudentAvatar v-if="showScaledAvatar" :photo="student.photo" @close="showScaledAvatar = false" />
 </template>
 <script defer src="@/components/StudentInfo/StudentInfo.js"></script>
@@ -20,6 +21,7 @@
   box-sizing: border-box
 }
 .studentContainer{
+  margin-top: 50px;
   display: flex;
   font-size: 1.3rem;
   font-weight: bold;
