@@ -5,7 +5,8 @@ export default createStore({
   plugins: [createPersistedState()],
   state: {
     count: 0,
-    theme:(localStorage.getItem('theme') === 'true')
+    theme:(localStorage.getItem('theme') === 'true'),
+    user: null
   },
   mutations: {
     setCount: (state, count) => state.count = count,
