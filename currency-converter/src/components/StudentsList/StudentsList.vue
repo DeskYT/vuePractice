@@ -83,11 +83,11 @@
   width: 100%;
   min-height: 100vh;
 }
-table {
+.studentsContainer table {
   margin-top: 15px;
   background-color: rgba(185, 210, 217, 0.7);
 }
-th, td { padding: 5px 10px; text-align: center}
+.studentsContainer th, td { padding: 5px 10px; text-align: center}
 .btn {
   font-size: 16px;
   padding: 6px 10px;
