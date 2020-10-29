@@ -1,5 +1,6 @@
 'use strict';
 const http = require('http');
+require('dotenv').config()
 const express = require('express');
 const router = require('./router');
 const errorHandler = require('./handleError/handler');
