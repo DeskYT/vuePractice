@@ -6,14 +6,17 @@ const userSchema = new Schema({
     userId: mongoose.Schema.ObjectId,
     name: {
         type: String,
-        required: true
+        allowNull: false,
+        required: true,
     },
     group: {
         type: String,
+        allowNull: false,
         required: true
     },
     age: {
         type: String,
+        allowNull: false,
         required: true
     },
 }, { timestamps: true });
