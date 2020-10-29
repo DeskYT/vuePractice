@@ -197,9 +197,11 @@ export default {
                 this.newStudent = {};
             });
         },
-        updateStudent (){
-            /*delete this.newStudent.photo
-            delete this.newStudent.name*/
+        updateStudent (stud){
+            for(let key in stud){
+                if(key !== '_id' && stud[key] === this.newStudent[key])
+                    delete this.newStudent[key]
+            }
             axios.put(`http://${HOST}/students/${this.newStudent._id}`, this.newStudent).then(response => {
                 console.log(response.data)
                 if(this.validateStudent(response.data))
